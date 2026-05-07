@@ -198,3 +198,36 @@ Full API docs available at `http://localhost:8000/docs` when running locally (Fa
 - [ ] Role-based access control
 - [ ] Audit trail for all AI actions
 - [ ] Admin dashboard for clinic managers
+
+---
+
+## Screenshots
+
+> Screenshots will be added as the MVP is built out.
+
+| Feature | Preview |
+|---------|---------|
+| Nurse Dashboard | _coming soon_ |
+| Live Transcription | _coming soon_ |
+| SOAP Note Review | _coming soon_ |
+| Session Management | _coming soon_ |
+
+---
+
+## Contributing
+
+This is an early-stage startup project. Contributions are welcome once the core MVP is stable.
+
+1. Fork the repo
+2. Create a feature branch: `git checkout -b feature/my-feature`
+3. Commit your changes with clear, plain messages
+4. Push to your fork and open a pull request
+5. Keep PRs small and focused on one thing
+
+Please do not open PRs that mix features, refactors, and bug fixes in the same diff.
+
+---
+
+## License
+
+MIT — see [LICENSE](./LICENSE) for details.
