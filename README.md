@@ -41,6 +41,8 @@ NurseFlow is an AI admin layer built for clinical environments. It sits between 
 
 ## System Architecture
 
+![NurseFlow System Architecture](./pics/nurseflow-hero.png)
+
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
 │                        INPUT PIPELINE                               │
