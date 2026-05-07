@@ -148,3 +148,23 @@ Frontend runs at `http://localhost:3000`, backend at `http://localhost:8000`.
 | `OPENAI_API_KEY` | Whisper transcription API key |
 | `JWT_SECRET` | Secret key for signing session tokens |
 | `ENVIRONMENT` | `development` or `production` |
+
+---
+
+## API Overview
+
+All endpoints are prefixed with `/api/v1`.
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/sessions` | Start a new patient session |
+| `GET` | `/sessions/:id` | Get session details and status |
+| `DELETE` | `/sessions/:id` | End and close a session |
+| `POST` | `/sessions/:id/audio` | Upload an audio chunk for transcription |
+| `GET` | `/sessions/:id/transcript` | Get the current live transcript |
+| `POST` | `/sessions/:id/soap` | Trigger SOAP note generation |
+| `GET` | `/sessions/:id/soap` | Retrieve the generated SOAP note |
+| `PATCH` | `/sessions/:id/soap` | Save nurse edits to the SOAP note |
+| `POST` | `/sessions/:id/submit` | Mark note as reviewed and submit |
+
+Full API docs available at `http://localhost:8000/docs` when running locally (FastAPI auto-generates Swagger UI).
