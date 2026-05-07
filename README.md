@@ -22,3 +22,17 @@ NurseFlow is an AI admin layer built for clinical environments. It sits between 
 - Nurse review dashboard for approval and edits
 - Session-based architecture for multi-patient workflows
 - Future-ready EHR integration layer
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Frontend | Next.js 14, TypeScript, TailwindCSS |
+| Backend | FastAPI, Python 3.11+ |
+| Database | PostgreSQL |
+| Transcription | OpenAI Whisper |
+| AI / NLP | Claude (Anthropic) |
+| Auth | JWT + session tokens |
+| Deployment | Docker (local), Vercel + Railway (cloud) |
