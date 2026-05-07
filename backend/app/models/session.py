@@ -1,0 +1,23 @@
+import uuid
+from datetime import datetime
+from sqlalchemy import Column, String, DateTime, Text, Enum
+from sqlalchemy.dialects.postgresql import UUID
+from app.core.database import Base
+import enum
+
+
+class SessionStatus(str, enum.Enum):
+    active = "active"
+    closed = "closed"
+
+
+class PatientSession(Base):
+    __tablename__ = "patient_sessions"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    nurse_id = Column(String, nullable=False)
+    patient_ref = Column(String, nullable=True)
+    status = Column(Enum(SessionStatus), default=SessionStatus.active, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    closed_at = Column(DateTime, nullable=True)
+    raw_transcript = Column(Text, nullable=True)
