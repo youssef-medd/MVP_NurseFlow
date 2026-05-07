@@ -127,3 +127,24 @@ alembic upgrade head
 ```
 
 Frontend runs at `http://localhost:3000`, backend at `http://localhost:8000`.
+
+---
+
+## Environment Variables
+
+### Frontend (`frontend/.env.local`)
+
+| Variable | Description |
+|----------|-------------|
+| `NEXT_PUBLIC_API_URL` | Backend API base URL |
+| `NEXT_PUBLIC_WS_URL` | WebSocket URL for real-time transcription |
+
+### Backend (`backend/.env`)
+
+| Variable | Description |
+|----------|-------------|
+| `DATABASE_URL` | PostgreSQL connection string |
+| `ANTHROPIC_API_KEY` | Claude API key from console.anthropic.com |
+| `OPENAI_API_KEY` | Whisper transcription API key |
+| `JWT_SECRET` | Secret key for signing session tokens |
+| `ENVIRONMENT` | `development` or `production` |
