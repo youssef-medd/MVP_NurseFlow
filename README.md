@@ -79,3 +79,51 @@ NurseFlow is an AI admin layer built for clinical environments. It sits between 
 | AI Engine | Claude-powered SOAP note generation |
 | EHR Connector | Adapter layer for future EHR integrations |
 | Audit Logger | Immutable log of all AI decisions and nurse actions |
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- Python 3.11+
+- PostgreSQL 15+
+- Docker (optional but recommended)
+
+### 1. Clone the repo
+
+```bash
+git clone https://github.com/your-username/nurseflow.git
+cd nurseflow
+```
+
+### 2. Set up the frontend
+
+```bash
+cd frontend
+npm install
+cp .env.example .env.local
+npm run dev
+```
+
+### 3. Set up the backend
+
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+cp .env.example .env
+uvicorn main:app --reload
+```
+
+### 4. Set up the database
+
+```bash
+psql -U postgres -c "CREATE DATABASE nurseflow;"
+# Run migrations (once implemented)
+alembic upgrade head
+```
+
+Frontend runs at `http://localhost:3000`, backend at `http://localhost:8000`.
