@@ -36,3 +36,46 @@ NurseFlow is an AI admin layer built for clinical environments. It sits between 
 | AI / NLP | Claude (Anthropic) |
 | Auth | JWT + session tokens |
 | Deployment | Docker (local), Vercel + Railway (cloud) |
+
+---
+
+## System Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                        INPUT PIPELINE                               │
+│                                                                     │
+│  Mic Array → VAD/Vite → Whisper Med → Distillation → Anonymizer    │
+│                                              ↓                      │
+│                                        Edge Buffer                  │
+└──────────────────────────────┬──────────────────────────────────────┘
+                               ↓
+┌─────────────────────────────────────────────────────────────────────┐
+│                          CORE LAYER                                 │
+│                                                                     │
+│  API Gateway → Session Manager → AI Engine → EHR Connector         │
+│                                     ↓              ↓               │
+│                               Audit Logger   Insurance Dir          │
+└──────────────────────────────┬──────────────────────────────────────┘
+                               ↓
+┌─────────────────────────────────────────────────────────────────────┐
+│                        NURSE INTERFACE                              │
+│                                                                     │
+│  Dashboard  →  SOAP Review  →  Approve / Edit  →  Submit to EHR   │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+**Component breakdown:**
+
+| Component | Role |
+|-----------|------|
+| VAD / Vite | Voice Activity Detection — starts/stops recording per utterance |
+| Whisper Med | Medical-domain fine-tuned transcription model |
+| Distillation | Cleans and normalizes raw transcript |
+| Anonymizer | Strips PII before sending to cloud AI |
+| Edge Buffer | Queues audio chunks for reliable delivery |
+| API Gateway | Entry point for all client requests |
+| Session Manager | Tracks active patient sessions and context |
+| AI Engine | Claude-powered SOAP note generation |
+| EHR Connector | Adapter layer for future EHR integrations |
+| Audit Logger | Immutable log of all AI decisions and nurse actions |
