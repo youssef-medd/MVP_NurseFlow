@@ -168,3 +168,33 @@ All endpoints are prefixed with `/api/v1`.
 | `POST` | `/sessions/:id/submit` | Mark note as reviewed and submit |
 
 Full API docs available at `http://localhost:8000/docs` when running locally (FastAPI auto-generates Swagger UI).
+
+---
+
+## Roadmap
+
+### Phase 1 — MVP Foundation (current)
+- [x] Repository structure and monorepo setup
+- [ ] Frontend shell with Next.js
+- [ ] Backend skeleton with FastAPI
+- [ ] Real-time transcription pipeline (Whisper)
+- [ ] SOAP note generation (Claude)
+- [ ] Nurse review dashboard (basic)
+
+### Phase 2 — Session Architecture
+- [ ] Multi-session support per nurse
+- [ ] Session persistence and recovery
+- [ ] Audio streaming over WebSocket
+- [ ] Transcript segmentation and speaker detection
+
+### Phase 3 — EHR Integration
+- [ ] EHR adapter interface (FHIR-ready)
+- [ ] One-click note submission
+- [ ] Draft auto-save and version history
+
+### Phase 4 — Production Hardening
+- [ ] HIPAA compliance audit
+- [ ] End-to-end encryption
+- [ ] Role-based access control
+- [ ] Audit trail for all AI actions
+- [ ] Admin dashboard for clinic managers
