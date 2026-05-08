@@ -12,20 +12,10 @@ Rules:
 - If a section has no data from the transcript, write "Not documented."
 - Be concise. Each section should be 1-4 sentences unless the transcript warrants more.
 - Never include patient names or identifiers in the output.
+- Output raw JSON only — no markdown, no code fences, no explanation."""
 
-Output format (strict JSON):
-{
-  "subjective": "...",
-  "objective": "...",
-  "assessment": "...",
-  "plan": "..."
-}"""
+SOAP_JSON_PREFILL = '{"subjective":'
 
 
 def build_soap_user_prompt(transcript: str) -> str:
-    return f"""Generate a SOAP note from the following clinical interaction transcript.
-
-TRANSCRIPT:
-{transcript}
-
-Return only the JSON object. No explanation, no preamble."""
+    return f"Generate a SOAP note from the following clinical interaction transcript.\n\nTRANSCRIPT:\n{transcript}"
