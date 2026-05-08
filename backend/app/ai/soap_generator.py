@@ -1,7 +1,9 @@
 import json
 from app.ai.claude_client import complete
-from app.ai.prompts import SOAP_SYSTEM_PROMPT, build_soap_user_prompt
+from app.ai.prompts import SOAP_SYSTEM_PROMPT, SOAP_JSON_PREFILL, build_soap_user_prompt
 from app.core.config import settings
+
+SOAP_FIELDS = {"subjective", "objective", "assessment", "plan"}
 
 
 class SOAPGenerationError(Exception):
@@ -9,28 +11,22 @@ class SOAPGenerationError(Exception):
 
 
 def generate_soap_note(transcript: str) -> dict:
-    if not transcript or not transcript.strip():
+    if not transcript.strip():
         raise SOAPGenerationError("Transcript is empty — cannot generate SOAP note.")
 
     raw = complete(
         system=SOAP_SYSTEM_PROMPT,
         user=build_soap_user_prompt(transcript),
+        prefill=SOAP_JSON_PREFILL,
         max_tokens=settings.soap_max_tokens,
     )
 
     try:
-        # Strip markdown code fences if Claude wraps the JSON
-        cleaned = raw.strip()
-        if cleaned.startswith("```"):
-            cleaned = cleaned.split("```")[1]
-            if cleaned.startswith("json"):
-                cleaned = cleaned[4:]
-        note = json.loads(cleaned)
-    except (json.JSONDecodeError, IndexError) as e:
+        note = json.loads(SOAP_JSON_PREFILL + raw)
+    except json.JSONDecodeError as e:
         raise SOAPGenerationError(f"Failed to parse Claude response as JSON: {e}\nRaw: {raw}")
 
-    required = {"subjective", "objective", "assessment", "plan"}
-    missing = required - note.keys()
+    missing = SOAP_FIELDS - note.keys()
     if missing:
         raise SOAPGenerationError(f"SOAP response missing fields: {missing}")
 
