@@ -5,7 +5,6 @@ from pydantic import BaseModel
 
 
 class SessionCreate(BaseModel):
-    nurse_id: str
     patient_ref: Optional[str] = None
 
 

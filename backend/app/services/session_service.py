@@ -5,8 +5,8 @@ from app.models.session import PatientSession, SessionStatus
 from app.schemas.session import SessionCreate
 
 
-def create_session(db: Session, data: SessionCreate) -> PatientSession:
-    session = PatientSession(nurse_id=data.nurse_id, patient_ref=data.patient_ref)
+def create_session(db: Session, data: SessionCreate, nurse_id: str) -> PatientSession:
+    session = PatientSession(nurse_id=nurse_id, patient_ref=data.patient_ref)
     db.add(session)
     db.commit()
     db.refresh(session)
