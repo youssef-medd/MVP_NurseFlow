@@ -3,7 +3,7 @@ from sqlalchemy import engine_from_config, pool
 from alembic import context
 from app.core.config import settings
 from app.core.database import Base
-from app.models import session, soap_note  # noqa: F401 — registers models with Base
+from app.models import session, soap_note, nurse  # noqa: F401 — registers models with Base
 
 config = context.config
 config.set_main_option("sqlalchemy.url", settings.database_url)

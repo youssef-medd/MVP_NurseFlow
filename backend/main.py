@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
-from app.routes import soap, sessions
+from app.routes import auth, soap, sessions
 
 app = FastAPI(
     title="NurseFlow API",
@@ -17,6 +17,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(auth.router, prefix="/api/v1/auth", tags=["auth"])
 app.include_router(sessions.router, prefix="/api/v1/sessions", tags=["sessions"])
 app.include_router(soap.router, prefix="/api/v1/sessions", tags=["soap"])
 
