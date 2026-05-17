@@ -22,7 +22,13 @@ def create_soap_note(db: Session, session_id: UUID, transcript: str) -> SOAPNote
     return note
 
 
+_EDITABLE_FIELDS = {"subjective", "objective", "assessment", "plan"}
+
+
 def update_soap_note(db: Session, note: SOAPNote, fields: dict) -> SOAPNote:
+    unknown = set(fields) - _EDITABLE_FIELDS
+    if unknown:
+        raise ValueError(f"Cannot modify fields: {unknown}")
     for key, value in fields.items():
         setattr(note, key, value)
     db.commit()
