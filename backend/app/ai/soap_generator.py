@@ -23,8 +23,8 @@ def generate_soap_note(transcript: str) -> dict:
 
     try:
         note = json.loads(SOAP_JSON_PREFILL + raw)
-    except json.JSONDecodeError as e:
-        raise SOAPGenerationError(f"Failed to parse Claude response as JSON: {e}\nRaw: {raw}")
+    except json.JSONDecodeError:
+        raise SOAPGenerationError("Failed to parse SOAP response; check server logs")
 
     missing = SOAP_FIELDS - note.keys()
     if missing:

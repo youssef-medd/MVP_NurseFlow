@@ -21,4 +21,6 @@ def complete(system: str, user: str, prefill: str = "", max_tokens: int = 1024) 
         system=system,
         messages=messages,
     )
+    if not message.content or message.content[0].type != "text":
+        raise RuntimeError("Unexpected response format from Claude API")
     return message.content[0].text
