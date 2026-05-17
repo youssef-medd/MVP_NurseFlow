@@ -1,7 +1,7 @@
 from uuid import UUID
 from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class SessionCreate(BaseModel):
@@ -20,4 +20,4 @@ class SessionResponse(BaseModel):
 
 
 class TranscriptUpdate(BaseModel):
-    text: str
+    text: str = Field(..., min_length=1, max_length=100_000)
