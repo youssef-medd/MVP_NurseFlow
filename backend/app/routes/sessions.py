@@ -6,6 +6,7 @@ from app.core.database import get_db
 from app.core.dependencies import get_current_nurse
 from app.models.nurse import Nurse
 from app.schemas.session import SessionCreate, SessionResponse, TranscriptUpdate
+from app.models.session import SessionStatus
 from app.services import session_service
 
 router = APIRouter()
@@ -45,6 +46,8 @@ def close_session(
         raise HTTPException(status_code=404, detail="Session not found")
     if session.nurse_id != str(current_nurse.id):
         raise HTTPException(status_code=403, detail="Access denied")
+    if session.status == SessionStatus.closed:
+        raise HTTPException(status_code=409, detail="Session already closed")
     return session_service.close_session(db, session_id)
 
 
