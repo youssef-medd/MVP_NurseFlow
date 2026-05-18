@@ -73,5 +73,7 @@ def submit_soap(
 ):
     _owned_session_or_404(db, session_id, current_nurse)
     note = _note_or_404(db, session_id)
+    if note.submitted:
+        raise HTTPException(status_code=409, detail="SOAP note already submitted")
     soap_service.submit_soap_note(db, note)
     return {"status": "submitted", "note_id": str(note.id)}
