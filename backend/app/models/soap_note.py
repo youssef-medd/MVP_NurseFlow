@@ -1,5 +1,5 @@
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from sqlalchemy import Column, String, DateTime, Text, Boolean, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
@@ -15,7 +15,7 @@ class SOAPNote(Base):
     objective = Column(Text, nullable=True)
     assessment = Column(Text, nullable=True)
     plan = Column(Text, nullable=True)
-    generated_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    generated_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), nullable=False)
     reviewed = Column(Boolean, default=False, nullable=False)
     submitted = Column(Boolean, default=False, nullable=False)
     nurse_edits = Column(Text, nullable=True)

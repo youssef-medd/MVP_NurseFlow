@@ -1,5 +1,5 @@
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from sqlalchemy import Column, String, DateTime, Text, Enum
 from sqlalchemy.dialects.postgresql import UUID
 from app.core.database import Base
@@ -18,6 +18,6 @@ class PatientSession(Base):
     nurse_id = Column(String, nullable=False)
     patient_ref = Column(String, nullable=True)
     status = Column(Enum(SessionStatus), default=SessionStatus.active, nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), nullable=False)
     closed_at = Column(DateTime, nullable=True)
     raw_transcript = Column(Text, nullable=True)
