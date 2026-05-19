@@ -63,6 +63,8 @@ def append_transcript(
         raise HTTPException(status_code=404, detail="Session not found")
     if session.nurse_id != str(current_nurse.id):
         raise HTTPException(status_code=403, detail="Access denied")
+    if session.status == SessionStatus.closed:
+        raise HTTPException(status_code=409, detail="Session is closed — cannot append transcript")
     session_service.append_transcript(db, session_id, body.text)
     return {"status": "ok", "session_id": str(session_id)}
 
