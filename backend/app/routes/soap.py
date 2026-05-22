@@ -62,6 +62,8 @@ def edit_soap(
 ):
     _owned_session_or_404(db, session_id, current_nurse)
     note = _note_or_404(db, session_id)
+    if note.submitted:
+        raise HTTPException(status_code=409, detail="Cannot edit a submitted SOAP note")
     try:
         return soap_service.update_soap_note(db, note, edits.model_dump(exclude_none=True))
     except ValueError as e:
