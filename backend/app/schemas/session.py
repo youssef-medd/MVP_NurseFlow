@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field
 
 
 class SessionCreate(BaseModel):
-    patient_ref: Optional[str] = None
+    patient_ref: Optional[str] = Field(None, min_length=1, max_length=100)
 
 
 class SessionResponse(BaseModel):
