@@ -51,7 +51,7 @@ def close_session(
     return session_service.close_session(db, session_id)
 
 
-@router.post("/{session_id}/transcript")
+@router.post("/{session_id}/transcript", status_code=200)
 def append_transcript(
     session_id: UUID,
     body: TranscriptUpdate,
