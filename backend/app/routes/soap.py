@@ -70,7 +70,7 @@ def edit_soap(
         raise HTTPException(status_code=400, detail=str(e))
 
 
-@router.post("/{session_id}/submit")
+@router.post("/{session_id}/submit", response_model=SOAPNoteResponse)
 def submit_soap(
     session_id: UUID,
     db: Session = Depends(get_db),
@@ -80,5 +80,4 @@ def submit_soap(
     note = _note_or_404(db, session_id)
     if note.submitted:
         raise HTTPException(status_code=409, detail="SOAP note already submitted")
-    soap_service.submit_soap_note(db, note)
-    return {"status": "submitted", "note_id": str(note.id)}
+    return soap_service.submit_soap_note(db, note)
