@@ -19,5 +19,5 @@ class PatientSession(Base):
     patient_ref = Column(String, nullable=True)
     status = Column(Enum(SessionStatus), default=SessionStatus.active, nullable=False)
     created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), nullable=False)
-    closed_at = Column(DateTime, nullable=True)
+    closed_at = Column(DateTime(timezone=True), nullable=True)
     raw_transcript = Column(Text, nullable=True)
